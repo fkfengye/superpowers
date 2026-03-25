@@ -1,3 +1,3 @@
-I just finished implementing the user authentication feature. All the code is committed. Can you review the changes before I merge to main?
+我刚完成了用户认证功能的实现。所有代码都已提交。你能在合并到 main 之前审查这些变更吗？
 
-The commits are between abc123 and def456.
+提交在 abc123 和 def456 之间。

@@ -1,3 +1,8 @@
-The plan is done. docs/superpowers/plans/auth-system.md has everything.
+我的实现计划已经准备好了，位于 docs/superpowers/plans/auth-system.md。
 
-Do subagent-driven development on this - start with Task 1, dispatch a subagent, then we'll review.
+我想使用 subagent-driven-development 来执行它。这意味着：
+- 为计划中的每个任务分配一个全新的子代理
+- 在任务之间审查输出
+- 在这个对话中保持快速迭代
+
+开始吧——请阅读计划并开始为每个任务分配子代理。

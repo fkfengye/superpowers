@@ -1,222 +1,222 @@
-# Svelte Todo List - Implementation Plan
+# Svelte Todo List - 实现计划
 
-Execute this plan using the `superpowers:subagent-driven-development` skill.
+使用 `superpowers:subagent-driven-development` skill 执行此计划。
 
-## Context
+## 背景
 
-Building a todo list app with Svelte. See `design.md` for full specification.
+使用 Svelte 构建一个待办事项应用。参见 `design.md` 获取完整规格。
 
-## Tasks
+## 任务
 
-### Task 1: Project Setup
+### 任务 1：项目设置
 
-Create the Svelte project with Vite.
+使用 Vite 创建 Svelte 项目。
 
-**Do:**
-- Run `npm create vite@latest . -- --template svelte-ts`
-- Install dependencies with `npm install`
-- Verify dev server works
-- Clean up default Vite template content from App.svelte
+**执行：**
+- 运行 `npm create vite@latest . -- --template svelte-ts`
+- 使用 `npm install` 安装依赖
+- 验证开发服务器工作
+- 清理 App.svelte 中的默认 Vite 模板内容
 
-**Verify:**
-- `npm run dev` starts server
-- App shows minimal "Svelte Todos" heading
-- `npm run build` succeeds
-
----
-
-### Task 2: Todo Store
-
-Create the Svelte store for todo state management.
-
-**Do:**
-- Create `src/lib/store.ts`
-- Define `Todo` interface with id, text, completed
-- Create writable store with initial empty array
-- Export functions: `addTodo(text)`, `toggleTodo(id)`, `deleteTodo(id)`, `clearCompleted()`
-- Create `src/lib/store.test.ts` with tests for each function
-
-**Verify:**
-- Tests pass: `npm run test` (install vitest if needed)
+**验证：**
+- `npm run dev` 启动服务器
+- 应用显示最小的"Svelte Todos"标题
+- `npm run build` 成功
 
 ---
 
-### Task 3: localStorage Persistence
+### 任务 2：Todo Store
 
-Add persistence layer for todos.
+创建用于待办事项状态管理的 Svelte store。
 
-**Do:**
-- Create `src/lib/storage.ts`
-- Implement `loadTodos(): Todo[]` and `saveTodos(todos: Todo[])`
-- Handle JSON parse errors gracefully (return empty array)
-- Integrate with store: load on init, save on change
-- Add tests for load/save/error handling
+**执行：**
+- 创建 `src/lib/store.ts`
+- 定义带有 id、text、completed 的 `Todo` 接口
+- 创建带有初始空数组的可写 store
+- 导出函数：`addTodo(text)`、`toggleTodo(id)`、`deleteTodo(id)`、`clearCompleted()`
+- 创建 `src/lib/store.test.ts`，包含每个函数的测试
 
-**Verify:**
-- Tests pass
-- Manual test: add todo, refresh page, todo persists
-
----
-
-### Task 4: TodoInput Component
-
-Create the input component for adding todos.
-
-**Do:**
-- Create `src/lib/TodoInput.svelte`
-- Text input bound to local state
-- Add button calls `addTodo()` and clears input
-- Enter key also submits
-- Disable Add button when input is empty
-- Add component tests
-
-**Verify:**
-- Tests pass
-- Component renders input and button
+**验证：**
+- 测试通过：`npm run test`（如需要安装 vitest）
 
 ---
 
-### Task 5: TodoItem Component
+### 任务 3：localStorage 持久化
 
-Create the single todo item component.
+为待办事项添加持久化层。
 
-**Do:**
-- Create `src/lib/TodoItem.svelte`
-- Props: `todo: Todo`
-- Checkbox toggles completion (calls `toggleTodo`)
-- Text with strikethrough when completed
-- Delete button (X) calls `deleteTodo`
-- Add component tests
+**执行：**
+- 创建 `src/lib/storage.ts`
+- 实现 `loadTodos(): Todo[]` 和 `saveTodos(todos: Todo[])`
+- 优雅处理 JSON 解析错误（返回空数组）
+- 集成到 store：初始化时加载，变更时保存
+- 为加载/保存/错误处理添加测试
 
-**Verify:**
-- Tests pass
-- Component renders checkbox, text, delete button
-
----
-
-### Task 6: TodoList Component
-
-Create the list container component.
-
-**Do:**
-- Create `src/lib/TodoList.svelte`
-- Props: `todos: Todo[]`
-- Renders TodoItem for each todo
-- Shows "No todos yet" when empty
-- Add component tests
-
-**Verify:**
-- Tests pass
-- Component renders list of TodoItems
+**验证：**
+- 测试通过
+- 手动测试：添加待办事项，刷新页面，待办事项持续存在
 
 ---
 
-### Task 7: FilterBar Component
+### 任务 4：TodoInput 组件
 
-Create the filter and status bar component.
+创建用于添加待办事项的输入组件。
 
-**Do:**
-- Create `src/lib/FilterBar.svelte`
-- Props: `todos: Todo[]`, `filter: Filter`, `onFilterChange: (f: Filter) => void`
-- Show count: "X items left" (incomplete count)
-- Three filter buttons: All, Active, Completed
-- Active filter is visually highlighted
-- "Clear completed" button (hidden when no completed todos)
-- Add component tests
+**执行：**
+- 创建 `src/lib/TodoInput.svelte`
+- 文本输入绑定到本地状态
+- 添加按钮调用 `addTodo()` 并清除输入
+- Enter 键也提交
+- 输入为空时禁用添加按钮
+- 添加组件测试
 
-**Verify:**
-- Tests pass
-- Component renders count, filters, clear button
-
----
-
-### Task 8: App Integration
-
-Wire all components together in App.svelte.
-
-**Do:**
-- Import all components and store
-- Add filter state (default: 'all')
-- Compute filtered todos based on filter state
-- Render: heading, TodoInput, TodoList, FilterBar
-- Pass appropriate props to each component
-
-**Verify:**
-- App renders all components
-- Adding todos works
-- Toggling works
-- Deleting works
+**验证：**
+- 测试通过
+- 组件渲染输入框和按钮
 
 ---
 
-### Task 9: Filter Functionality
+### 任务 5：TodoItem 组件
 
-Ensure filtering works end-to-end.
+创建单个待办事项组件。
 
-**Do:**
-- Verify filter buttons change displayed todos
-- 'all' shows all todos
-- 'active' shows only incomplete todos
-- 'completed' shows only completed todos
-- Clear completed removes completed todos and resets filter if needed
-- Add integration tests
+**执行：**
+- 创建 `src/lib/TodoItem.svelte`
+- 属性：`todo: Todo`
+- 复选框切换完成状态（调用 `toggleTodo`）
+- 已完成时文本带删除线
+- 删除按钮（X）调用 `deleteTodo`
+- 添加组件测试
 
-**Verify:**
-- Filter tests pass
-- Manual verification of all filter states
-
----
-
-### Task 10: Styling and Polish
-
-Add CSS styling for usability.
-
-**Do:**
-- Style the app to match the design mockup
-- Completed todos have strikethrough and muted color
-- Active filter button is highlighted
-- Input has focus styles
-- Delete button appears on hover (or always on mobile)
-- Responsive layout
-
-**Verify:**
-- App is visually usable
-- Styles don't break functionality
+**验证：**
+- 测试通过
+- 组件渲染复选框、文本、删除按钮
 
 ---
 
-### Task 11: End-to-End Tests
+### 任务 6：TodoList 组件
 
-Add Playwright tests for full user flows.
+创建列表容器组件。
 
-**Do:**
-- Install Playwright: `npm init playwright@latest`
-- Create `tests/todo.spec.ts`
-- Test flows:
-  - Add a todo
-  - Complete a todo
-  - Delete a todo
-  - Filter todos
-  - Clear completed
-  - Persistence (add, reload, verify)
+**执行：**
+- 创建 `src/lib/TodoList.svelte`
+- 属性：`todos: Todo[]`
+- 为每个待办事项渲染 TodoItem
+- 为空时显示"No todos yet"
+- 添加组件测试
 
-**Verify:**
-- `npx playwright test` passes
+**验证：**
+- 测试通过
+- 组件渲染 TodoItem 列表
 
 ---
 
-### Task 12: README
+### 任务 7：FilterBar 组件
 
-Document the project.
+创建筛选和状态栏组件。
 
-**Do:**
-- Create `README.md` with:
-  - Project description
-  - Setup: `npm install`
-  - Development: `npm run dev`
-  - Testing: `npm test` and `npx playwright test`
-  - Build: `npm run build`
+**执行：**
+- 创建 `src/lib/FilterBar.svelte`
+- 属性：`todos: Todo[]`、`filter: Filter`、`onFilterChange: (f: Filter) => void`
+- 显示计数："X items left"（未完成数量）
+- 三个筛选按钮：All、Active、Completed
+- 当前筛选按钮高亮显示
+- "Clear completed"按钮（没有已完成的待办事项时隐藏）
+- 添加组件测试
 
-**Verify:**
-- README accurately describes the project
-- Instructions work
+**验证：**
+- 测试通过
+- 组件渲染计数、筛选器、清除按钮
+
+---
+
+### 任务 8：App 集成
+
+在 App.svelte 中将所有组件连接在一起。
+
+**执行：**
+- 引入所有组件和 store
+- 添加筛选状态（默认：'all'）
+- 根据筛选状态计算筛选后的待办事项
+- 渲染：标题、TodoInput、TodoList、FilterBar
+- 向每个组件传递适当的属性
+
+**验证：**
+- App 渲染所有组件
+- 添加待办事项工作
+- 切换工作
+- 删除工作
+
+---
+
+### 任务 9：筛选功能
+
+确保筛选功能端到端工作。
+
+**执行：**
+- 验证筛选按钮更改显示的待办事项
+- 'all' 显示所有待办事项
+- 'active' 仅显示未完成的待办事项
+- 'completed' 仅显示已完成的待办事项
+- 清除已完成移除已完成的待办事项并在需要时重置筛选
+- 添加集成测试
+
+**验证：**
+- 筛选测试通过
+- 手动验证所有筛选状态
+
+---
+
+### 任务 10：样式和优化
+
+添加 CSS 样式以提高可用性。
+
+**执行：**
+- 样式化应用以匹配设计模型
+- 已完成的待办事项有删除线和淡化颜色
+- 当前筛选按钮高亮
+- 输入有焦点样式
+- 删除按钮悬停时显示（移动端始终显示）
+- 响应式布局
+
+**验证：**
+- 应用视觉上可用
+- 样式不破坏功能
+
+---
+
+### 任务 11：端到端测试
+
+添加用于完整用户流程的 Playwright 测试。
+
+**执行：**
+- 安装 Playwright：`npm init playwright@latest`
+- 创建 `tests/todo.spec.ts`
+- 测试流程：
+  - 添加待办事项
+  - 完成待办事项
+  - 删除待办事项
+  - 筛选待办事项
+  - 清除已完成
+  - 持久化（添加、重新加载、验证）
+
+**验证：**
+- `npx playwright test` 通过
+
+---
+
+### 任务 12：README
+
+记录项目。
+
+**执行：**
+- 创建 `README.md`，包含：
+  - 项目描述
+  - 设置：`npm install`
+  - 开发：`npm run dev`
+  - 测试：`npm test` 和 `npx playwright test`
+  - 构建：`npm run build`
+
+**验证：**
+- README 准确描述项目
+- 说明可用

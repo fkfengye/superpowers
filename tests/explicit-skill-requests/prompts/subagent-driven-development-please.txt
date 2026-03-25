@@ -1,1 +1,3 @@
-subagent-driven-development, please
+计划已经完成。docs/superpowers/plans/auth-system.md 包含所有内容。
+
+做 subagent-driven 开发——从任务 1 开始，分配一个子代理，然后我们进行审查。

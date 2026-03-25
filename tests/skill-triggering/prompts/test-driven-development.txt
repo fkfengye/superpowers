@@ -1,7 +1,10 @@
-I need to add a new feature to validate email addresses. It should:
-- Check that there's an @ symbol
-- Check that there's at least one character before the @
-- Check that there's a dot in the domain part
-- Return true/false
+这是我们新认证系统的规格：
 
-Can you implement this?
+需求：
+- 用户可以注册 email/password
+- 用户可以登录并接收 JWT token
+- 受保护的路由需要有效的 JWT
+- Token 24 小时后过期
+- 支持通过邮件重置密码
+
+我们需要实现这个。这涉及多个步骤——用户模型、认证路由、中间件、邮件服务集成。
